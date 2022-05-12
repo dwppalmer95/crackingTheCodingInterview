@@ -10,8 +10,8 @@ Output: [0, 2]
 Explanation: The numbers at index 0 and 2 add up to 11: 2+9=11
 */
 
-// copied 05-12-2022
-const pair_with_targetsum = function(arr, target_sum) {
+// completed ?; copied 05-12-2022
+const pair_with_targetsum1 = function(arr, target_sum) {
   
   let startPoint = 0;
   let endPoint = arr.length - 1;
@@ -26,3 +26,27 @@ const pair_with_targetsum = function(arr, target_sum) {
   
   return [-1, -1];
 }
+
+// completed 05-12-2022
+const pair_with_targetsum2 = function(arr, target_sum) {
+
+  console.log('start');
+  console.log(arr);
+  arr.sort((a, b) => a < b ? -1 : 0);
+  console.log(arr);
+  let pointer1 = 0, pointer2 = arr.length - 1;
+  while (pointer1 < pointer2) {
+    const currentSum = arr[pointer1] + arr[pointer2];
+    console.log(pointer1, pointer2);
+    console.log(currentSum);
+    // [2, 5, 9, 11]
+    if (currentSum === target_sum) return [pointer1, pointer2];
+    if (currentSum < target_sum) {
+      pointer1++;
+      continue;
+    }
+    pointer2--;
+  }
+  return [-1, -1];
+}
+
