@@ -9,6 +9,8 @@ class Interval {
   }
 }
 
+// completed 05-12-2022
+// time: O(Nlog(N)) space: O(N)
 const merge = function(intervals) {
   merged = []
   intervals.sort((a, b) => b.start < a.start ? 1 : 0);
