@@ -43,7 +43,7 @@ let solveKnapsack2 = function(p, w, c, idx = 0) {
   return Math.max(tp1, tp2);
 };
 
-let solveKnapsackMemoize = (p, w, c) => {
+let solveKnapsack1Memoize = (p, w, c) => {
   const cache = {};
 
   let solveKnapsackRecursive = function(p, w, c, comb =[]) {
@@ -71,6 +71,28 @@ let solveKnapsackMemoize = (p, w, c) => {
     return maxP;
   };
   return solveKnapsackRecursive(p, w, c);
+}
+
+let calls = 0;
+const cache = {};
+let solveKnapsack2Memoize = (profits, weights, c, currentIdx = 0) => {
+  calls++;
+	const cacheKey = [c, currentIdx].toString();
+  if (cache.hasOwnProperty(cacheKey)) return cache[cacheKey];
+  let profit1 = 0;
+	if (currentIdx >= weights.length) return 0;
+	const currentItemWeight = weights[currentIdx];
+	// put item in bag
+	if (currentItemWeight <= c) {
+		profit1 = profits[currentIdx] + solveKnapsack(profits, weights, c - currentItemWeight, currentIdx + 1);
+	}
+	
+	// do not put item in bag
+	const profit2 = solveKnapsack(profits, weights, c, currentIdx + 1);
+
+  const maxProfit = Math.max(profit1, profit2);
+  cache[cacheKey] = maxProfit; 
+	return maxProfit;
 }
 
 
